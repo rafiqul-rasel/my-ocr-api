@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+
     public function register(Request $request): \Illuminate\Http\JsonResponse
     {
         $validatedData = $request->validate([
@@ -36,8 +37,7 @@ class AuthController extends Controller
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
-                'access_token' => "Invalid",
-               // 'message' => 'Invalid login details'
+                'message' => 'Invalid login details'
             ], 401);
         }
 
@@ -47,8 +47,8 @@ class AuthController extends Controller
 
         return response()->json([
             'access_token' => $token,
-            //'token_type' => 'Bearer',
-           // 'message' => "User logged in successfully",
+            'token_type' => 'Bearer',
+           'message' => "User logged in successfully",
         ]);
     }
 
